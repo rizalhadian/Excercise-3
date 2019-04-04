@@ -1,0 +1,78 @@
+.navbar {
+    background: url("./pattern.png"), linear-gradient(to right,rgb(241, 241, 241) , rgba(0, 0, 0));
+}
+
+.navbar-collapse .nav-link{
+    margin-left:10px;
+    background: #EDEDED;
+}
+
+.about-me-section {
+    height: auto;
+    padding-bottom: 50px;
+    background: url("./pattern.png"), linear-gradient(to left,rgb(241, 241, 241) , black);
+}
+
+.about-me-content{
+    margin-top: 50px;
+    padding: 30px;
+    width:auto;
+    color:white;
+    background: black;
+    opacity: 0.8;
+}
+
+.about-me-exercise{
+    margin-top: 10%;
+    padding: 30px;
+    color:white;
+    font-size: 20px;
+
+}
+
+.about-me-content .form-group {
+    margin-top: 10px;
+    margin-bottom: -10px;
+    margin-left: 5px;
+}
+
+.btn-linkedin {
+    background: #0B95B2;
+    color: white;
+    font-size: 180%;
+}
+
+.btn-facebook {
+    background: rgb(0, 8, 255);
+    color: white;
+    font-size: 180%;
+}
+
+.btn-instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+    color: white;
+    font-size: 180%;
+}
+
+.experiences {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.experiences .container .table .desc {
+    width : 700px;
+}
+
+.skills {
+    background-image: url("./coding.jpg");
+    background-position: center;
+    background-size: cover;
+    height: 500px;
+}
+
+.skills-content {
+    background: white;
+    opacity: 0.8;
+    margin-top: 20px;
+    padding: 30px;
+}
