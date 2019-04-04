@@ -4,6 +4,8 @@ var starwars_planets = {
 }
 
 var i = 1;
+var pages;
+var page_current;
 var error404 = false;
 while(i>0){
     $.ajax({ 
@@ -15,6 +17,7 @@ while(i>0){
         success: function (data) {          
             // console.log(data.detail);
             starwars_planets.count = data.count;
+            pages = Math.floor(data.count / 10);
             data.results.forEach(result => {
                 starwars_planets.planets.push(result);
 
@@ -39,13 +42,14 @@ while(i>0){
     i++;
 }
 
-console.log(starwars_planets);
+console.log(pages);
 
 var planetsdatatable = document.getElementById("planets-datatable");
+var paging = document.getElementById("paging");
 
 
 
-function readDataTable(order){
+function readDataTable(order, page){
     if(typeof order !== 'undefined') {
         starwars_planets.planets.sort(function(a, b){
             if(order.is_asc){
@@ -60,28 +64,51 @@ function readDataTable(order){
         });
     }
 
-    starwars_planets.planets.forEach(planet => {
-        // console.log(planet);
+    var start;
+    if(page == 1){
+        start = 0;
+    }else{
+        start = page*10;
+    }
+
+    paging.innerHTML = "";
+    var p = 1;
+    while(p<=pages){
+        if(page == p){
+            paging.insertAdjacentHTML('beforeend', '<button class="btn btn-primary btn-sm" style="margin-left:10px;" onclick="goToPage(this.value)" value="'+p+'">'+p+'</button>');
+        }else{
+            paging.insertAdjacentHTML('beforeend', '<button class="btn btn-light btn-sm" style="margin-left:10px;" onclick="goToPage(this.value)" value="'+p+'">'+p+'</button>');
+        }
+        p++;
+    }
+
+    planetsdatatable.innerHTML = "";
+
+    for(i = start; i<start+10; i++){
         planetsdatatable.insertAdjacentHTML('beforeend','<tr>'+
-                                                            '<td>'+planet.name+'</td>'+
-                                                            '<td>'+planet.rotation_period+'</td>'+    
-                                                            '<td>'+planet.orbital_period+'</td>'+    
-                                                            '<td>'+planet.diameter+'</td>'+    
-                                                            '<td>'+planet.climate+'</td>'+    
-                                                            '<td>'+planet.gravity+'</td>'+    
-                                                            '<td>'+planet.terrain+'</td>'+    
-                                                            '<td>'+planet.surface_water+'</td>'+    
-                                                            '<td>'+planet.population+'</td>'+    
+                                                            '<td>'+starwars_planets.planets[i].name+'</td>'+
+                                                            '<td>'+starwars_planets.planets[i].rotation_period+'</td>'+    
+                                                            '<td>'+starwars_planets.planets[i].orbital_period+'</td>'+    
+                                                            '<td>'+starwars_planets.planets[i].diameter+'</td>'+    
+                                                            '<td>'+starwars_planets.planets[i].climate+'</td>'+    
+                                                            '<td>'+starwars_planets.planets[i].gravity+'</td>'+    
+                                                            '<td>'+starwars_planets.planets[i].terrain+'</td>'+    
+                                                            '<td>'+starwars_planets.planets[i].surface_water+'</td>'+    
+                                                            '<td>'+starwars_planets.planets[i].population+'</td>'+    
                                                         '</tr>');
-    });
+    }
+
+    
 }
 
-readDataTable();
 
 var order = {
-    by: null,
-    is_asc: null
+    by: 'name',
+    is_asc: 'true'
 };
+
+readDataTable(order, 1);
+
 
 function doOrder(value){
     // alert(value);
@@ -96,8 +123,12 @@ function doOrder(value){
         }
     }
     planetsdatatable.innerHTML = "";
-    readDataTable(order);
+    readDataTable(order, 1);
 
-    console.log(order);
+    // console.log(order);
+}
+
+function goToPage(value){
+    readDataTable(order, value);
 }
 
